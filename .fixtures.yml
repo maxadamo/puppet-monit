@@ -1,10 +1,10 @@
 fixtures:
-  repositories:
-    'stdlib':
-      repo: 'git://github.com/puppetlabs/puppetlabs-stdlib.git'
-      ref: 'v6.1.0'
-    'firewall':
-      repo: 'git://github.com/puppetlabs/puppetlabs-firewall.git'
-      ref: 'v2.1.0'
+  forge_modules:
+    firewall:
+      repo: "puppetlabs/firewall"
+      ref: "2.1.0"
+    stdlib:
+      repo: "puppetlabs/stdlib"
+      ref: "6.1.0"
   symlinks:
     'monit': "#{source_dir}"
