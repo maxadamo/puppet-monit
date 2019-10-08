@@ -1,6 +1,6 @@
 {
   "name": "soli-monit",
-  "version": "2.0.1",
+  "version": "2.5.0",
   "author": "Solution Libre SAS",
   "summary": "Puppet module to manage monit installation and configuration",
   "license": "Apache-2.0",
@@ -10,11 +10,11 @@
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 4.6.0 < 6.0.0"
+      "version_requirement": ">= 4.13.0 < 6.1.0"
     },
     {
       "name": "puppetlabs/firewall",
-      "version_requirement": ">= 1.7.1 < 2.0.0"
+      "version_requirement": ">= 1.7.1 < 2.1.0"
     }
   ],
   "operatingsystem_support": [
