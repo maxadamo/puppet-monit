@@ -7,7 +7,6 @@ class monit (
   String $httpd_address              = $monit::params::httpd_address,
   String $httpd_allow                = $monit::params::httpd_allow,
   String $httpd_user                 = $monit::params::httpd_user,
-  Sensitive $httpd_password          = $monit::params::httpd_password,
   Boolean $manage_firewall           = $monit::params::manage_firewall,
   String $package_ensure             = $monit::params::package_ensure,
   String $package_name               = $monit::params::package_name,
@@ -33,9 +32,45 @@ class monit (
   Boolean $mmonit_https              = $monit::params::mmonit_https,
   Integer[1, 65535]  $mmonit_port    = $monit::params::mmonit_port,
   String $mmonit_user                = $monit::params::mmonit_user,
-  Sensitive $mmonit_password         = $monit::params::mmonit_password,
   Boolean $mmonit_without_credential = $monit::params::mmonit_without_credential,
+  Variant[Sensitive, String] $httpd_password  = $monit::params::httpd_password,
+  Variant[Sensitive, String] $mmonit_password = $monit::params::mmonit_password,
 ) inherits monit::params {
+
+  # check if we are either using Sensitive and if we are using the default password
+  if $httpd_password =~ String {
+    notify { '"httpd_password" String detected!':
+      message => 'It is advisable to use the Sensitive datatype for "httpd_password"';
+    }
+    if $httpd_password == 'monit' {
+      notify { '"httpd_password" Default password detected!':
+        message => 'It is advisable to not use the default value "httpd_password"';
+      }
+    }
+  } else {
+    if $httpd_password.unwrap == 'monit' {
+      notify { '"httpd_password" Default password detected!':
+        message => 'It is advisable to not use the default value "httpd_password"';
+      }
+    }
+  }
+
+  if $mmonit_password =~ String {
+    notify { '"mmonit_password" String detected!':
+      message => 'It is advisable to use the Sensitive datatype for "mmonit_password"';
+    }
+    if $mmonit_password == 'monit' {
+      notify { '"httpd_password" Default password detected!':
+        message => 'It is advisable to not use the default value "mmonit_password"';
+      }
+    }
+  } else {
+    if $mmonit_password.unwrap == 'monit' {
+      notify { '"mmonit_password" Default password detected!':
+        message => 'It is advisable to not use the default value "mmonit_password"';
+      }
+    }
+  }
 
   # Use the monit_version fact if available, else use the default for the
   # platform.
