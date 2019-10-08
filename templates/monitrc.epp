@@ -1,0 +1,41 @@
+# monitrc: Managed by puppet.
+#
+set daemon <%= $check_interval %>
+<%- if $start_delay != 0 { -%>
+with start delay <%= $start_delay %>
+<%- } -%>
+set logfile <%= $logfile %>
+<%- if  versioncmp($::monit_version_real, '5') >= 0 { -%>
+set idfile /var/lib/monit/id
+<%- } -%>
+set statefile /var/lib/monit/state
+<%- if $mailserver { -%>
+set mailserver <%= $mailserver %>
+<%- } -%>
+<%- if $mailformat { -%>
+set mail-format {
+<% $mailformat.sort.each | $key, $value | { -%>
+    <%= $key %>: <%= $value %>
+<%- } -%>
+}
+<%- } -%>
+<% $alert_emails.each | $email | { -%>
+set alert <%= $email %>
+<%- } -%>
+set eventqueue
+    basedir /var/lib/monit/events
+    slots 100
+<%- if $httpd == true { -%>
+set httpd port <%= $httpd_port %> and
+   use address <%= $httpd_address %>
+   allow <%= $httpd_allow %>
+   <% if defined($httpd_user) and defined($httpd_password) { -%>
+   allow <%= $httpd_user %>:<%= $httpd_password.unwrap %>
+   <%- } -%>
+<%- } -%>
+<%- if $mmonit_address { -%>
+set mmonit http<% if $mmonit_https { %>s<%- } -%>://<%= $mmonit_user %>:<%= $mmonit_password.unwrap %>@<%= $mmonit_address %>:<%= $mmonit_port %>/collector
+<%- if $mmonit_without_credential { -%>   and register without credentials<%- } -%>
+<%- } -%>
+
+include <%= $config_dir -%>/*

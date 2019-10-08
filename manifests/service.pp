@@ -1,10 +1,12 @@
-# Private class
+# Private class: monit::service
+#
 class monit::service inherits monit {
+
   if $caller_module_name != $module_name {
     fail("Use of private class ${name} by ${caller_module_name}")
   }
 
-  if $monit::service_manage_bool {
+  if $monit::service_manage {
     if $::osfamily == 'Debian' {
       file { '/etc/default/monit':
         content => $monit::default_file_content,
@@ -25,4 +27,5 @@ class monit::service inherits monit {
       ],
     }
   }
+
 }

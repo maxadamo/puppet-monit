@@ -17,8 +17,8 @@ class monit::config inherits monit {
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
-    purge   => $monit::config_dir_purge_bool,
-    recurse => $monit::config_dir_purge_bool,
+    purge   => $monit::config_dir_purge,
+    recurse => $monit::config_dir_purge,
     require => Package['monit'],
   }
 
@@ -28,7 +28,25 @@ class monit::config inherits monit {
     owner   => 'root',
     group   => 'root',
     mode    => '0600',
-    content => template('monit/monitrc.erb'),
+    content => epp('monit/monitrc.epp', {
+      check_interval            => $monit::check_interval,
+      start_delay               => $monit::start_delay,
+      logfile                   => $monit::start_delay,
+      mailserver                => $monit::mailserver,
+      mailformat                => $monit::mailformat,
+      alert_emails              => $monit::alert_emails,
+      httpd                     => $monit::httpd,
+      httpd_port                => $monit::httpd_port,
+      httpd_address             => $monit::httpd_address,
+      httpd_allow               => $monit::httpd_allow,
+      httpd_user                => $monit::httpd_user,
+      httpd_password            => $monit::httpd_password,
+      mmonit_address            => $monit::mmonit_address,
+      mmonit_https              => $monit::mmonit_https,
+      mmonit_without_credential => $monit::mmonit_without_credential,
+      config_dir                => $monit::config_dir
+    }),
     require => Package['monit'],
   }
+
 }

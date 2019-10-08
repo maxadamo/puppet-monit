@@ -9,7 +9,7 @@ class monit::params {
   $httpd_address             = 'localhost'
   $httpd_allow               = '0.0.0.0/0.0.0.0'
   $httpd_user                = 'admin'
-  $httpd_password            = 'monit'
+  $httpd_password            = Sensitive('monit')
   $manage_firewall           = false
   $package_ensure            = 'present'
   $package_name              = 'monit'
@@ -24,9 +24,9 @@ class monit::params {
   $start_delay               = 0
   $mmonit_address            = undef
   $mmonit_https              = true
-  $mmonit_port               = '8443'
+  $mmonit_port               = 8443
   $mmonit_user               = 'monit'
-  $mmonit_password           = 'monit'
+  $mmonit_password           = Sensitive('monit')
   $mmonit_without_credential = false
 
   # <OS family handling>
