@@ -32,7 +32,7 @@ class monit::config inherits monit {
     content => epp('monit/monitrc.epp', {
       check_interval            => $monit::check_interval,
       start_delay               => $monit::start_delay,
-      logfile                   => $monit::start_delay,
+      logfile                   => $monit::logfile,
       mailserver                => $monit::mailserver,
       mailformat                => $monit::mailformat,
       alert_emails              => $monit::alert_emails,
