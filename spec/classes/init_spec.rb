@@ -21,40 +21,35 @@ describe 'monit' do
           else
             raise 'unsupported operatingsystemmajrelease detected on Debian osfamily'
           end
-        #when 'RedHat'
-        #  config_dir        = '/etc/monit.d'
-        #  service_hasstatus = true
-        #  case facts[:operatingsystem]
-        #  when 'Amazon'
-        #    case facts[:operatingsystemmajrelease]
-        #    when '4', '2'
-        #      monit_version = '5'
-        #      config_file   = '/etc/monitrc'
-        #    else
-        #      raise 'unsupported operatingsystemmajrelease detected on Amazon Linux operating system'
-        #    end
-        #  else
-        #    case facts[:operatingsystemmajrelease]
-        #    when '5'
-        #      monit_version = '4'
-        #      config_file   = '/etc/monit.conf'
-        #    when '6'
-        #      monit_version = '5'
-        #      config_file   = '/etc/monit.conf'
-        #    when '7'
-        #      monit_version = '5'
-        #      config_file   = '/etc/monitrc'
-        #    else
-        #      raise 'unsupported operatingsystemmajrelease detected on RedHat osfamily'
-        #    end
-        #  end
+        when 'RedHat'
+          config_dir        = '/etc/monit.d'
+          service_hasstatus = true
+          case facts[:operatingsystem]
+          when 'Amazon'
+            case facts[:operatingsystemmajrelease]
+            when '4', '2'
+              monit_version = '5'
+              config_file   = '/etc/monitrc'
+            else
+              raise 'unsupported operatingsystemmajrelease detected on Amazon Linux operating system'
+            end
+          else
+            case facts[:operatingsystemmajrelease]
+            when '5'
+              monit_version = '4'
+              config_file   = '/etc/monit.conf'
+            when '6'
+              monit_version = '5'
+              config_file   = '/etc/monit.conf'
+            when '7'
+              monit_version = '5'
+              config_file   = '/etc/monitrc'
+            else
+              raise 'unsupported operatingsystemmajrelease detected on RedHat osfamily'
+            end
+          end
         else
-          #raise 'unsupported osfamily detected'
-          config_file = '/etc/monit/monitrc'
-          config_dir  = '/etc/monit/conf.d'
-          monit_version = '5'
-          default_file_content = 'START=yes'
-          service_hasstatus    = true
+          raise 'unsupported osfamily detected'
       end
 
         it { is_expected.to compile.with_all_deps }
