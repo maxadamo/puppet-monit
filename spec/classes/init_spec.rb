@@ -6,10 +6,10 @@ describe 'monit' do
       context "on #{os}" do
         let(:facts) { facts }
 
-      case facts[:osfamily]
+        case facts[:osfamily]
         when 'Debian'
           config_file = '/etc/monit/monitrc'
-          config_dir  = '/etc/monit/conf.d'
+          config_dir = '/etc/monit/conf.d'
           monit_version = '5'
           case facts[:lsbdistcodename]
           when 'squeeze', 'lucid'
@@ -22,7 +22,7 @@ describe 'monit' do
             raise 'unsupported operatingsystemmajrelease detected on Debian osfamily'
           end
         when 'RedHat'
-          config_dir        = '/etc/monit.d'
+          config_dir = '/etc/monit.d'
           service_hasstatus = true
           case facts[:operatingsystem]
           when 'Amazon'
@@ -50,7 +50,7 @@ describe 'monit' do
           end
         else
           raise 'unsupported osfamily detected'
-      end
+        end
 
         it { is_expected.to compile.with_all_deps }
 
