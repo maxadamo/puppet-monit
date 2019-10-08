@@ -1,5 +1,6 @@
 # Private class
 class monit::config inherits monit {
+
   if $caller_module_name != $module_name {
     fail("Use of private class ${name} by ${caller_module_name}")
   }
@@ -45,6 +46,7 @@ class monit::config inherits monit {
       mmonit_https              => $monit::mmonit_https,
       mmonit_without_credential => $monit::mmonit_without_credential,
       config_dir                => $monit::config_dir
+      monit_version_real        => $monit::monit_version_real
     }),
     require => Package['monit'],
   }
