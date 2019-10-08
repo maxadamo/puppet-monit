@@ -6,7 +6,7 @@ describe 'monit' do
       context "on #{os}" do
         let(:facts) { facts }
 
-        case facts[:osfamily]
+      case facts[:osfamily]
         when 'Debian'
           config_file = '/etc/monit/monitrc'
           config_dir  = '/etc/monit/conf.d'
