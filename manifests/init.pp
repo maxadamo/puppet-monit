@@ -13,8 +13,8 @@ class monit (
   Boolean $service_enable            = $monit::params::service_enable,
   Variant[
     Boolean, Enum[
-      'stopped', 'false',
-      'running', 'true']
+      'stopped', false,
+      'running', true]
   ] $service_ensure                  = $monit::params::service_ensure,
   Boolean $service_manage            = $monit::params::service_manage,
   String $service_name               = $monit::params::service_name,
@@ -47,12 +47,14 @@ class monit (
         message => 'It is advisable to not use the default value "httpd_password"';
       }
     }
+    $httpd_password_real = Sensitive($httpd_password)
   } else {
     if $httpd_password.unwrap == 'monit' {
       notify { '"httpd_password" Default password detected!':
-        message => 'It is advisable to not use the default value "httpd_password"';
+        message => 'It is advisable to not use the default value for "httpd_password"';
       }
     }
+    $httpd_password_real = $httpd_password
   }
 
   if $mmonit_password =~ String {
@@ -61,15 +63,17 @@ class monit (
     }
     if $mmonit_password == 'monit' {
       notify { '"httpd_password" Default password detected!':
-        message => 'It is advisable to not use the default value "mmonit_password"';
+        message => 'It is advisable to not use the default value for "mmonit_password"';
       }
     }
+    $mmonit_password_real = Sensitive($mmonit_password)
   } else {
     if $mmonit_password.unwrap == 'monit' {
       notify { '"mmonit_password" Default password detected!':
         message => 'It is advisable to not use the default value "mmonit_password"';
       }
     }
+    $mmonit_password_real = $mmonit_password
   }
 
   # Use the monit_version fact if available, else use the default for the
