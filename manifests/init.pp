@@ -51,7 +51,7 @@ class monit (
   } else {
     if $httpd_password.unwrap == 'monit' {
       notify { '"httpd_password" Default password detected!':
-        message => 'It is advisable to not use the default value "httpd_password"';
+        message => 'It is advisable to not use the default value for "httpd_password"';
       }
     }
     $httpd_password_real = $httpd_password
@@ -63,7 +63,7 @@ class monit (
     }
     if $mmonit_password == 'monit' {
       notify { '"httpd_password" Default password detected!':
-        message => 'It is advisable to not use the default value "mmonit_password"';
+        message => 'It is advisable to not use the default value for "mmonit_password"';
       }
     }
     $mmonit_password_real = Sensitive($mmonit_password)
