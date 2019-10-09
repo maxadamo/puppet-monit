@@ -44,7 +44,7 @@ class monit (
     }
     if $httpd_password == 'monit' {
       notify { '"httpd_password" Default password detected!':
-        message => 'It is advisable to not use the default value "httpd_password"';
+        message => 'It is advisable to not use the default value for "httpd_password"';
       }
     }
     $httpd_password_real = Sensitive($httpd_password)
