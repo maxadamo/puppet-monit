@@ -13,8 +13,8 @@ class monit (
   Boolean $service_enable            = $monit::params::service_enable,
   Variant[
     Boolean, Enum[
-      'stopped', false,
-      'running', true]
+      'stopped', 'false',
+      'running', 'true']
   ] $service_ensure                  = $monit::params::service_ensure,
   Boolean $service_manage            = $monit::params::service_manage,
   String $service_name               = $monit::params::service_name,
