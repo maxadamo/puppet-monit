@@ -30,7 +30,7 @@ set httpd port <%= $httpd_port %> and
    use address <%= $httpd_address %>
    allow <%= $httpd_allow %>
    <% if defined($httpd_user) and defined($httpd_password) { -%>
-   allow <%= $httpd_user %>:<%= $httpd_password.unwrap %>
+   allow <%= $httpd_user %>:"<%= $httpd_password.unwrap %>"
    <%- } -%>
 <%- } -%>
 <%- if $mmonit_address { -%>
