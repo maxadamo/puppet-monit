@@ -1,4 +1,4 @@
-# Private Class: monit::install
+# == Private Class: monit::install
 #
 class monit::install inherits monit {
   if $caller_module_name != $module_name {

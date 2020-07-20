@@ -1,5 +1,8 @@
-# Private class
+# == Private class: monit::firewall
+#
+#
 class monit::firewall {
+
   if $caller_module_name != $module_name {
     fail("Use of private class ${name} by ${caller_module_name}")
   }
@@ -21,4 +24,5 @@ class monit::firewall {
       }
     }
   }
+
 }

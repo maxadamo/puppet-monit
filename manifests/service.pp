@@ -1,4 +1,4 @@
-# Private class: monit::service
+# == Private class: monit::service
 #
 class monit::service inherits monit {
 

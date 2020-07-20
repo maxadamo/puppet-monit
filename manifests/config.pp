@@ -1,4 +1,6 @@
-# Private class
+# == Private class: monit::config
+#
+#
 class monit::config inherits monit {
 
   if $caller_module_name != $module_name {
