@@ -69,7 +69,7 @@ Detected lsbdistcodename is <${::lsbdistcodename}>.")
           }
         }
         default: {
-          case $::operatingsystemmajrelease {
+          case $facts['os']['release']['major'] {
             '5': {
               $monit_version = '4'
               $config_file   = '/etc/monit.conf'
@@ -82,15 +82,19 @@ Detected lsbdistcodename is <${::lsbdistcodename}>.")
               $monit_version = '5'
               $config_file   = '/etc/monitrc'
             }
+            '8': {
+              $monit_version = '5'
+              $config_file   = '/etc/monitrc'
+            }
             default: {
-              fail("monit supports EL 5, 6 and 7. Detected operatingsystemmajrelease is <${::operatingsystemmajrelease}>.")
+              fail("monit supports EL 5, 6, 7 and 8. Detected operatingsystemmajrelease is <${facts['os']['release']['major']}>.")
             }
           }
         }
       }
     }
     default: {
-      fail("monit supports osfamilies Debian and RedHat. Detected osfamily is <${::osfamily}>.")
+      fail("monit supports osfamilies Debian and RedHat. Detected osfamily is <${facts['os']['family']}>.")
     }
   }
   # </OS family handling>
